@@ -1,11 +1,11 @@
 import json
-from typing import TypedDict, List, Dict, Any, Optional
 import numpy as np
 import pandas as pd
 import yfinance as yf
-from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
+from typing import TypedDict, List, Dict, Any, Optional
 from langgraph.graph import StateGraph, END
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.tools.tavily_search import TavilySearchResults
 import warnings
 warnings.filterwarnings('ignore')
@@ -54,13 +54,7 @@ class FinalRecommendation(BaseModel):
 
 # ====================== MONTE CARLO SIMULATOR ======================
 class MonteCarloSimulator:
-    # def get_historical_data(self, tickers: List[str], period="5y"):
-    #     data = yf.download(tickers, period=period, progress=False, auto_adjust=True)
-    #     if isinstance(data.columns, pd.MultiIndex):
-    #         prices = data['Adj Close']
-    #     else:
-    #         prices = data['Adj Close']
-    #     return prices.dropna(how='all')
+
     def get_historical_data(self, tickers: List[str], period="5y"):
         """Robust data fetching"""
         data = yf.download(
@@ -286,8 +280,8 @@ def should_revise_strategy(state: AgentState) -> str:
     """تصمیم‌گیری برای بازگشت یا ادامه"""
     risk = state.get("risk_evaluation", {})
     if risk.get("should_revise", False) and state.get("loop_count", 1) < 4:
-        return "revise"          # برگشت به Analyst
-    return "finalize"            # برو به Final Advisor
+        return "revise"          
+    return "finalize"            
 
 
 
@@ -307,7 +301,6 @@ def build_finance_advisor(llm, tavily_tool):
     workflow.add_edge("market_analyst", "simulator")
     workflow.add_edge("simulator", "fundamental_news")
     workflow.add_edge("fundamental_news", "risk_manager")
-    # workflow.add_edge("risk_manager", "final_advisor")
 
     workflow.add_conditional_edges(
         "risk_manager",
@@ -321,48 +314,3 @@ def build_finance_advisor(llm, tavily_tool):
     workflow.add_edge("final_advisor", END)
     
     return workflow.compile(), simulator
-
-
-# # ====================== TEST FUNCTION ======================
-# def test_advisor():
-#     from langchain_google_genai import ChatGoogleGenerativeAI
-#     import os
-#     from dotenv import load_dotenv, dotenv_values 
-#     load_dotenv() 
-
-#     llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite", temperature=0.65, google_api_key=os.getenv("GOOGLE_API_KEY"))
-#     search_tool = TavilySearchResults(max_results=3, tavily_api_key=os.getenv("TAVILY_API_KEY"))
-
-#     advisor, simulator = build_finance_advisor(llm, search_tool)
-    
-#     user_profile = {
-#         "initial_investment": 75000,
-#         "time_horizon": 5,
-#         "risk_tolerance": "Moderate",
-#         "goals": "Save for house down payment and long-term retirement",
-#         "monthly_contribution": 1500
-#     }
-    
-#     initial_state = {
-#         "user_profile": user_profile,
-#         "blackboard": [],
-#         "market_analyst_proposal": None,
-#         "simulation_results": None,
-#         "risk_evaluation": None,
-#         "final_recommendation": None
-#     }
-    
-#     result = advisor.invoke(initial_state)
-    
-#     print("\n" + "="*60)
-#     print("FINAL RECOMMENDATION")
-#     print("="*60)
-#     print("final strategy")
-#     print(result["final_recommendation"]["final_strategy"])
-#     print("reasoning")
-#     print(result["final_recommendation"]["reasoning"])
-#     print("expected outcome")
-#     print(result["final_recommendation"]["expected_outcome"])
-
-# if __name__ == "__main__":
-#     test_advisor()

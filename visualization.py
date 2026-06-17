@@ -20,7 +20,6 @@ def save_plot(fig, filename: str):
 
 def create_monte_carlo_distribution(sim_result: dict, initial_investment: float):
     """Monte Carlo Distribution Histogram"""
-    # برای سادگی، از توزیع نرمال تقریبی استفاده می‌کنیم (در نسخه پیشرفته می‌توانی تمام شبیه‌سازی‌ها را ذخیره کنی)
     mean_val = sim_result.get("mean_final_value", initial_investment * 1.3)
     std_val = (mean_val - sim_result.get("worst_5_percent", mean_val * 0.8)) / 1.65
     
