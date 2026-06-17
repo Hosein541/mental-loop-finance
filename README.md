@@ -4,20 +4,11 @@
 
 This project demonstrates advanced AI agent design for making smarter financial decisions through simulation, reflection, and iterative reasoning.
 
-[![Watch the video]]<video src="examples/mental_loop_demo.mp4" controls width="640" height="360"></video>
-
-![Video](examples/mental_loop_demo.mp4)
-(https://github.com/Hosein541/mental-loop-finance/main/examples/mental_loop_demo.mp4)
-
-<video width="800" controls>
-  <source src="https://raw.githubusercontent.com/[Hosein541]/[mental-loop-finance]/[main]/[examples/mental_loop_finance.mp4" type="video/mp4">
-</video>
-
 https://github.com/user-attachments/assets/15d97fe7-30bd-4b99-a7c6-a08a3f780eaa
 [🎥 Watch Demo]([https://github.com/user-attachments/assets/xxxxxxxx.mp4](https://github.com/user-attachments/assets/15d97fe7-30bd-4b99-a7c6-a08a3f780eaa))
 ## Demo
 
-[![Watch the demo](examples/thumbnail.png)](examples/mental_loop_demo.mp4)
+
 ---
 
 ## ✨ Features
