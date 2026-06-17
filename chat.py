@@ -66,12 +66,12 @@ def handle_chat_message(
 
     response = ""
     output_type = False
-    intent.key = intent.key.replace(" ", "_")
     print(f"intent:\t\t\t{intent.intent}")
     print(f"intent key:\t\t\t{intent.key}")
     print(f"intent value:\t\t\t{intent.value}\t\t{type(intent.value)}")
 
     if intent.intent == "update_profile" and intent.key:
+        intent.key = intent.key.replace(" ", "_")
         if intent.key in current_state["user_profile"]:
             old = current_state["user_profile"][intent.key]
             if type(old) == int:
@@ -84,7 +84,7 @@ def handle_chat_message(
             response += "🔄 Re-running full analysis with updated profile..."
             response += "\n📍 **Updated results are displayed above** in this conversation."
             response += "\nYou can continue chatting or request further changes."
-            
+
             current_state = rerun_full_analysis(current_state, finance_advisor)
             output_type = True
         else:

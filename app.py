@@ -1,9 +1,13 @@
 import streamlit as st
 import json
+# import datetime
+from datetime import datetime
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_community.tools.tavily_search import TavilySearchResults
 from mental_loop_finance import build_finance_advisor   # your main graph file
 from chat import handle_chat_message
+from visualization import  create_allocation_pie, create_monte_carlo_distribution, create_growth_projection
+
 
 st.set_page_config(page_title="MentalLoop Finance Advisor", layout="wide")
 st.title("💰 MentalLoop Personal Finance Advisor")
@@ -58,21 +62,61 @@ if "current_state" in st.session_state:
 
             result = st.session_state.advisor.invoke(state)
             st.session_state.current_state = result
-    dispaly_state = st.session_state.current_state
+    display_state = st.session_state.current_state
 
     # Display Analysis
-    if dispaly_state.get("final_recommendation"):
+    if display_state.get("final_recommendation"):
         st.subheader("📌 Final Recommendation")
-        st.markdown(dispaly_state["final_recommendation"].get("final_strategy", ""))
+        st.markdown(display_state["final_recommendation"].get("final_strategy", ""))
         
+        # Allocation Pie
+        if display_state.get("market_analyst_proposal"):
+            allocation = display_state["market_analyst_proposal"].get("allocation", {})
+            if allocation:
+                fig1, pie_md = create_allocation_pie(allocation)
+                st.plotly_chart(fig1, key=7, width="stretch")
+
+        # Monte Carlo Distribution
+        if display_state.get("simulation_results"):
+            sim = display_state["simulation_results"][0]
+            fig2, mc_md = create_monte_carlo_distribution(sim, display_state["user_profile"]["initial_investment"])
+            st.plotly_chart(
+                fig2,
+                key=8,
+                width="stretch"
+            )
+
+        # Growth Projection
+        fig3, pr_md = create_growth_projection(
+                sim, 
+                display_state["user_profile"]["initial_investment"], 
+                display_state["user_profile"]["time_horizon"]
+            )
+        st.plotly_chart(
+            fig3,
+            key=9,
+            width="stretch"
+        )
+
         # st.subheader("📋 Blackboard Progress")
         # for entry in dispaly_state["blackboard"]:
         #     st.markdown(entry)
         #     st.divider()
+        final_text = "# MentalLoop Finance Advisor - Full Report\n\n"
+        final_text += "## 📊 Visualizations\n\n"
+        final_text += pie_md + "\n\n"
+        final_text += mc_md + "\n\n"
+        final_text += pr_md + "\n\n"
+        final_output_text = "\n\n".join(display_state.get("blackboard", [])[-5:])  # last few reports
+        final_text += final_output_text
+        st.markdown(final_output_text)
 
-        final_text = "\n\n".join(dispaly_state.get("blackboard", [])[-5:])  # last few reports
-        st.markdown(final_text)
+        report_filename = f"MentalLoop_Report_{datetime.now().strftime('%Y%m%d_%H')}.md"
+        report_path = f"./{report_filename}"
 
+        with open(report_path, "w", encoding="utf-8") as f:
+            f.write(final_text)
+        st.info(f"📁 Report saved locally as: **`{report_filename}`**")
         # Download Button
         st.download_button(
             label="📥 Download Full Progress",
@@ -116,9 +160,56 @@ if "current_state" in st.session_state:
 
                     st.subheader("📌 Final Recommendation")
                     st.markdown(state["final_recommendation"].get("final_strategy", ""))
-                    final_text = "\n\n".join(state.get("blackboard", [])[-5:])  # last few reports
+                    
+                    # Allocation Pie
+                    if display_state.get("market_analyst_proposal"):
+                        allocation = display_state["market_analyst_proposal"].get("allocation", {})
+                        if allocation:
+                            fig1, pie_md = create_allocation_pie(allocation)
+                            st.plotly_chart(fig1, key=4, width="stretch")
+
+                    # Monte Carlo Distribution
+                    if display_state.get("simulation_results"):
+                        sim = display_state["simulation_results"][0]
+                        fig2, mc_md = create_monte_carlo_distribution(sim, display_state["user_profile"]["initial_investment"])
+                        st.plotly_chart(
+                            fig2,
+                            key=5,
+                            width="stretch"
+                        )
+
+                    # Growth Projection
+                    fig3, pr_md = create_growth_projection(
+                            sim, 
+                            display_state["user_profile"]["initial_investment"], 
+                            display_state["user_profile"]["time_horizon"]
+                        )
+                    st.plotly_chart(
+                        fig3,
+                        key=6,
+                        width="stretch"
+                    )
+                    # st.subheader("📋 Blackboard Progress")
+                    # for entry in dispaly_state["blackboard"]:
+                    #     st.markdown(entry)
+                    #     st.divider()
+                    final_text = "# MentalLoop Finance Advisor - Full Report\n\n"
+                    final_text += "## 📊 Visualizations\n\n"
+                    final_text += pie_md + "\n\n"
+                    final_text += mc_md + "\n\n"
+                    final_text += pr_md + "\n\n"
+                    final_output_text = "\n\n".join(display_state.get("blackboard", [])[-5:])  # last few reports
+                    final_text += final_output_text
+                    st.markdown(final_output_text)
+                    # final_text = "\n\n".join(state.get("blackboard", [])[-5:])  # last few reports
                     # st.markdown(final_text)
 
+                    report_filename = f"MentalLoop_Report_{datetime.now().strftime('%Y%m%d_%H')}.md"
+                    report_path = f"./{report_filename}"
+
+                    with open(report_path, "w", encoding="utf-8") as f:
+                        f.write(final_text)
+                    st.info(f"📁 Report saved locally as: **`{report_filename}`**")
                     # Download Button
                     st.download_button(
                         label="📥 Download Full Progress",
