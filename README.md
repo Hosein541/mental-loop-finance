@@ -6,6 +6,7 @@ This project demonstrates advanced AI agent design for making smarter financial 
 
 [![Watch the video]]<video src="examples/mental_loop_demo.mp4" controls width="640" height="360"></video>
 
+![Video](examples/mental_loop_demo.mp4)
 
 ---
 
