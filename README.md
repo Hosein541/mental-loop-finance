@@ -8,6 +8,10 @@ This project demonstrates advanced AI agent design for making smarter financial 
 
 ![Video](examples/mental_loop_demo.mp4)
 (https://github.com/Hosein541/mental-loop-finance/main/examples/mental_loop_demo.mp4)
+
+<video width="800" controls>
+  <source src="https://raw.githubusercontent.com/[Hosein541]/[mental-loop-finance]/[main]/[examples/mental_loop_finance.mp4" type="video/mp4">
+</video>
 ---
 
 ## ✨ Features
