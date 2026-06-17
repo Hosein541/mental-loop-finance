@@ -1,11 +1,10 @@
-import streamlit as st
 import json
-# import datetime
+import streamlit as st
 from datetime import datetime
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_community.tools.tavily_search import TavilySearchResults
-from mental_loop_finance import build_finance_advisor   # your main graph file
 from chat import handle_chat_message
+from mental_loop_finance import build_finance_advisor 
 from visualization import  create_allocation_pie, create_monte_carlo_distribution, create_growth_projection
 
 
@@ -98,10 +97,7 @@ if "current_state" in st.session_state:
             width="stretch"
         )
 
-        # st.subheader("📋 Blackboard Progress")
-        # for entry in dispaly_state["blackboard"]:
-        #     st.markdown(entry)
-        #     st.divider()
+
         final_text = "# MentalLoop Finance Advisor - Full Report\n\n"
         final_text += "## 📊 Visualizations\n\n"
         final_text += pie_md + "\n\n"
@@ -154,7 +150,6 @@ if "current_state" in st.session_state:
                 )
                 st.session_state.current_state = state
                 st.markdown(response)
-                # st.markdown(output_type)
                 
                 if output_type :
 
@@ -189,10 +184,7 @@ if "current_state" in st.session_state:
                         key=6,
                         width="stretch"
                     )
-                    # st.subheader("📋 Blackboard Progress")
-                    # for entry in dispaly_state["blackboard"]:
-                    #     st.markdown(entry)
-                    #     st.divider()
+
                     final_text = "# MentalLoop Finance Advisor - Full Report\n\n"
                     final_text += "## 📊 Visualizations\n\n"
                     final_text += pie_md + "\n\n"
@@ -201,8 +193,7 @@ if "current_state" in st.session_state:
                     final_output_text = "\n\n".join(display_state.get("blackboard", [])[-5:])  # last few reports
                     final_text += final_output_text
                     st.markdown(final_output_text)
-                    # final_text = "\n\n".join(state.get("blackboard", [])[-5:])  # last few reports
-                    # st.markdown(final_text)
+
 
                     report_filename = f"MentalLoop_Report_{datetime.now().strftime('%Y%m%d_%H')}.md"
                     report_path = f"./{report_filename}"
@@ -210,6 +201,7 @@ if "current_state" in st.session_state:
                     with open(report_path, "w", encoding="utf-8") as f:
                         f.write(final_text)
                     st.info(f"📁 Report saved locally as: **`{report_filename}`**")
+                    
                     # Download Button
                     st.download_button(
                         label="📥 Download Full Progress",
