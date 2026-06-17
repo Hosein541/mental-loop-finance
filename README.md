@@ -4,7 +4,6 @@
 
 This project demonstrates advanced AI agent design for making smarter financial decisions through simulation, reflection, and iterative reasoning.
 
-https://github.com/user-attachments/assets/15d97fe7-30bd-4b99-a7c6-a08a3f780eaa
 [🎥 Watch Demo](https://github.com/user-attachments/assets/15d97fe7-30bd-4b99-a7c6-a08a3f780eaa)
 ## Demo
 
