@@ -4,7 +4,8 @@
 
 This project demonstrates advanced AI agent design for making smarter financial decisions through simulation, reflection, and iterative reasoning.
 
-![Monte Carlo Simulation](examples/monte_carlo_distribution.png)
+<video src="examples/mental_loop_demo.mp4" controls width="640" height="360"></video>
+
 
 ---
 
