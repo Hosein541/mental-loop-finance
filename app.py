@@ -57,7 +57,7 @@ if "current_state" in st.session_state:
     if start_button and not state.get("final_recommendation"):
         with st.spinner("Running full Mental Loop Analysis..."):
             user_input = st.session_state.current_state["user_profile"]
-            st.info(f"user profile :\t\t\t{user_input}")
+            # st.info(f"user profile :\t\t\t{user_input}")
 
             result = st.session_state.advisor.invoke(state)
             st.session_state.current_state = result
@@ -201,7 +201,7 @@ if "current_state" in st.session_state:
                     with open(report_path, "w", encoding="utf-8") as f:
                         f.write(final_text)
                     st.info(f"📁 Report saved locally as: **`{report_filename}`**")
-                    
+
                     # Download Button
                     st.download_button(
                         label="📥 Download Full Progress",

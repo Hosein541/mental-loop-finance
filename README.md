@@ -38,7 +38,7 @@ This project demonstrates advanced AI agent design for making smarter financial 
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/mental-loop-finance.git
+git clone https://github.com/Hosein541/mental-loop-finance.git
 cd mental-loop-finance
 ```
 
@@ -54,9 +54,8 @@ poetry run streamlit run app.py
 ### 4. API Keys
 You need:
 
-Google Gemini API Key
-
-Tavily Search API Key
+- Google Gemini API Key
+- Tavily Search API Key
 
 
 ## 📸 Screenshots
@@ -75,38 +74,30 @@ Bashmental-loop-finance/
 ├── chat.py                   # Chat intent handling
 ├── visualization.py          # Plotly charts and image saving
 ├── images/                   # Generated visualization images
+├── examples/                 # output examples for readme.me 
 ├── README.md
-└── requirements.txt
+├── .gitignore
+└── pyproject.toml
 ```
 
 ## How It Works
 
-User inputs financial profile (investment, time horizon, risk tolerance, etc.)
-
-Market Analyst proposes an investment strategy
-
-News Analyst fetches latest fundamental news
-
-Monte Carlo Simulator runs thousands of market scenarios
-
-Risk Manager evaluates risks and may request strategy revision
-
-Final Advisor delivers clear, actionable recommendation
-
-User can chat to modify parameters and instantly re-run analysis
+- User inputs financial profile (investment, time horizon, risk tolerance, etc.)
+- Market Analyst proposes an investment strategy
+- News Analyst fetches latest fundamental news
+- Monte Carlo Simulator runs thousands of market scenarios
+- Risk Manager evaluates risks and may request strategy revision
+- Final Advisor delivers clear, actionable recommendation
+- User can chat to modify parameters and instantly re-run analysis
 
 
 ## Future Enhancements
 
-Advanced Portfolio Optimization
-
-Multiple scenario comparison
-
-PDF report generation
-
-User history and saved scenarios
-
-**Dark** mode support
+- Advanced Portfolio Optimization
+- Multiple scenario comparison
+- PDF report generation
+- User history and saved scenarios
+- Dark mode support
 
 
 ## License
