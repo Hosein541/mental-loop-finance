@@ -2,12 +2,7 @@ import json
 from typing import Dict, Any, Optional
 from pydantic import BaseModel, Field
 from langchain_core.prompts import ChatPromptTemplate
-from mental_loop_finance import fundamental_news_analyst_node
 
-# class ChatIntent(BaseModel):
-#     intent: str = Field(description="update_profile, ask_explanation, or general_question")
-#     key: Optional[str] = Field(description="it can be : initial investment, time horizon, risk tolerance, monthly contribution, goals ")
-#     value: Optional[Any] = None
 
 class ChatIntent(BaseModel):
     intent: str = Field(
@@ -32,13 +27,6 @@ def handle_chat_message(
     tavily_tool
 ) -> tuple:
     
-    # # Intent Detection
-    # prompt = ChatPromptTemplate.from_template(
-    #     """You are a smart router. Detect user intent.
-
-    #     User Message: {message}
-    #     """
-    # )
 
     prompt = ChatPromptTemplate.from_template(
     """You are an intelligent intent classifier for a Personal Finance AI Advisor.
@@ -89,17 +77,6 @@ def handle_chat_message(
             output_type = True
         else:
             response = f"❌ Unknown profile field: {intent.key}"
-
-    # elif intent.intent == "refresh_news":
-    #     response = "📰 Fetching latest market news...\n"
-    #     # Call news analyst
-    #     fundamental_news_analyst_node(current_state, llm, tavily_tool)  # assume this function exists
-    #     response += "🔄 Re-running analysis with fresh news..."
-    #     current_state = rerun_full_analysis(current_state, finance_advisor)
-
-    # elif intent.intent == "rerun_analysis":
-    #     response = "🔄 Re-running full financial analysis..."
-    #     current_state = rerun_full_analysis(current_state, finance_advisor)
 
     elif intent.intent == "ask_explanation":
         response = explain_current_recommendation(current_state, llm, user_message)
