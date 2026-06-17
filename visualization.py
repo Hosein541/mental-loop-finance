@@ -66,7 +66,7 @@ def create_allocation_pie(allocation: dict):
     fig.update_traces(textinfo='percent+label')
     fig.update_layout(height=400)
 
-    img_md = save_plot(fig, "assest_allocation.png")
+    img_md = save_plot(fig, "asset_allocation.png")
     return fig, img_md
 
 
