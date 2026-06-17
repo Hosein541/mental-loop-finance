@@ -55,6 +55,7 @@ poetry run streamlit run app.py
 You need:
 
 Google Gemini API Key
+
 Tavily Search API Key
 
 
@@ -81,21 +82,31 @@ Bashmental-loop-finance/
 ## How It Works
 
 User inputs financial profile (investment, time horizon, risk tolerance, etc.)
+
 Market Analyst proposes an investment strategy
+
 News Analyst fetches latest fundamental news
+
 Monte Carlo Simulator runs thousands of market scenarios
+
 Risk Manager evaluates risks and may request strategy revision
+
 Final Advisor delivers clear, actionable recommendation
+
 User can chat to modify parameters and instantly re-run analysis
 
 
 ## Future Enhancements
 
 Advanced Portfolio Optimization
+
 Multiple scenario comparison
+
 PDF report generation
+
 User history and saved scenarios
-Dark mode support
+
+**Dark** mode support
 
 
 ## License
